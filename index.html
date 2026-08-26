@@ -17,7 +17,7 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 .scr{position:fixed;inset:0;display:none;flex-direction:column}
 .scr.on{display:flex}
 
-/* ---------- מסך 1 : בית / צילום ---------- */
+/* 1 · בית */
 #home{background:#1a1a1c;align-items:center;justify-content:flex-end;padding-bottom:calc(38px + env(safe-area-inset-bottom))}
 #home .brand{position:absolute;top:calc(30px + env(safe-area-inset-top));right:0;left:0;text-align:center;color:#8e8e93;font-size:17px}
 #shoot{width:170px;height:170px;border-radius:50%;background:#fff;color:#111;border:none;
@@ -26,14 +26,21 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 #home .toToday{margin-top:30px;color:#fff;font-size:20px;background:#2c2c30;border:none;
        font-family:inherit;padding:14px 34px;border-radius:30px}
 
-/* ---------- מסך 2 : נשמר ---------- */
+/* 2 · נשמר + תיוג */
 #saved{background:#000;align-items:center;justify-content:center}
-#saved img{max-width:100%;max-height:100%;object-fit:contain}
-#saved .ok{position:absolute;bottom:0;right:0;left:0;background:rgba(0,0,0,.78);
-       padding:26px calc(18px + env(safe-area-inset-right)) calc(30px + env(safe-area-inset-bottom));
-       text-align:center;font-size:26px;font-weight:700}
+#savedImg{max-width:100%;max-height:100%;object-fit:contain}
+#savedPanel{position:absolute;bottom:0;right:0;left:0;background:rgba(0,0,0,.82);
+       padding:20px 16px calc(24px + env(safe-area-inset-bottom));text-align:center}
+#savedPanel .ok{font-size:24px;font-weight:700;margin-bottom:4px}
+#savedPanel .q{font-size:18px;color:#c9c9ce;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:14px}
+.chip{background:#2f2f34;color:#fff;border:2px solid #4a4a52;border-radius:24px;
+      padding:12px 20px;font-family:inherit;font-size:19px}
+.chip.on{background:#fff;color:#111;border-color:#fff;font-weight:700}
+#doneBtn{background:#0a63c9;color:#fff;border:none;border-radius:14px;
+      padding:16px 46px;font-family:inherit;font-size:20px;font-weight:700}
 
-/* ---------- מסכים בהירים ---------- */
+/* מסכים בהירים */
 .light{background:#fff;color:#111}
 .top{display:flex;align-items:center;justify-content:space-between;
      padding:calc(16px + env(safe-area-inset-top)) 18px 12px;border-bottom:1px solid #e6e6e6;flex:0 0 auto}
@@ -44,6 +51,7 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 .item{display:flex;align-items:center;gap:14px;padding:9px 18px}
 .item img{width:82px;height:82px;object-fit:cover;border-radius:12px;background:#e8e8e8;flex:0 0 auto}
 .item .t{font-size:20px;color:#222}
+.item .mk{font-size:16px;color:#6b6b6b;margin-top:2px}
 .empty{padding:40px 18px;color:#8a8a8a;font-size:20px;text-align:center}
 .wrow{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid #f0f0f0}
 .wday{width:104px;font-size:19px;color:#333}
@@ -53,14 +61,27 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 .linkbar{padding:22px 18px;text-align:center}
 .linkbar button{background:none;border:none;font-family:inherit;font-size:19px;color:#0a63c9}
 
-/* ---------- הגדרות ---------- */
-.field{padding:14px 18px}
+/* הגדרות ופרופיל */
+.sec{padding:18px 18px 4px;font-size:17px;color:#7a7a7a;font-weight:700}
+.field{padding:10px 18px}
 .field label{display:block;font-size:18px;color:#444;margin-bottom:6px}
 .field input{width:100%;font-family:inherit;font-size:20px;padding:13px;border:1px solid #ccc;border-radius:10px;direction:rtl}
+.three{display:flex;gap:10px;padding:10px 18px}
+.three > div{flex:1}
+.three label{display:block;font-size:16px;color:#444;margin-bottom:5px}
+.three input{width:100%;font-family:inherit;font-size:20px;padding:12px;border:1px solid #ccc;border-radius:10px;text-align:center}
+#bmiBox{margin:12px 18px;padding:16px;border-radius:12px;background:#f4f6f8;border:1px solid #e0e5ea;text-align:center}
+#bmiBox .n{font-size:34px;font-weight:700;color:#111;direction:ltr}
+#bmiBox .l{font-size:16px;color:#777}
+.mkrow{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #f0f0f0}
+.mkrow .box{width:28px;height:28px;border-radius:7px;border:2px solid #b5b5b5;flex:0 0 auto;
+     display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff}
+.mkrow.on .box{background:#0a63c9;border-color:#0a63c9}
+.mkrow .nm{font-size:20px;color:#111}
 .bigbtn{display:block;width:calc(100% - 36px);margin:12px 18px;padding:18px;border-radius:14px;
         border:none;font-family:inherit;font-size:20px;font-weight:700;background:#0a63c9;color:#fff}
-.bigbtn.sec{background:#efefef;color:#222;font-weight:400}
-.note{padding:6px 18px 0;color:#777;font-size:16px}
+.bigbtn.sec2{background:#efefef;color:#222;font-weight:400}
+.note{padding:4px 18px 0;color:#777;font-size:16px}
 .ver{padding:26px 18px;color:#aaa;font-size:14px;text-align:center}
 </style>
 </head>
@@ -73,18 +94,20 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
   <button class="toToday" data-go="today">היום</button>
 </section>
 
-<!-- 2 · נשמר -->
+<!-- 2 · נשמר + תיוג -->
 <section id="saved" class="scr">
   <img id="savedImg" alt="">
-  <div class="ok" id="savedTxt">נשמר ✓</div>
+  <div id="savedPanel">
+    <div class="ok">נשמר ✓</div>
+    <div class="q" id="savedQ"></div>
+    <div class="chips" id="savedChips"></div>
+    <button id="doneBtn" style="display:none">סיום</button>
+  </div>
 </section>
 
 <!-- 3 · היום -->
 <section id="today" class="scr light">
-  <div class="top">
-    <h1>היום</h1>
-    <button class="back" data-go="home">סגור</button>
-  </div>
+  <div class="top"><h1>היום</h1><button class="back" data-go="home">סגור</button></div>
   <div class="body">
     <div class="sum" id="todaySum"></div>
     <div id="todayList"></div>
@@ -94,33 +117,44 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 
 <!-- 4 · השבוע -->
 <section id="week" class="scr light">
-  <div class="top">
-    <h1>השבוע</h1>
-    <button class="back" data-go="today">חזרה</button>
-  </div>
+  <div class="top"><h1>השבוע</h1><button class="back" data-go="today">חזרה</button></div>
   <div class="body">
     <div id="weekList"></div>
-    <div class="linkbar"><button data-go="set">הגדרות</button></div>
+    <div class="linkbar"><button data-go="set">הפרופיל וההגדרות שלי</button></div>
   </div>
 </section>
 
-<!-- 5 · הגדרות -->
+<!-- 5 · פרופיל והגדרות -->
 <section id="set" class="scr light">
-  <div class="top">
-    <h1>הגדרות</h1>
-    <button class="back" data-go="week">חזרה</button>
-  </div>
+  <div class="top"><h1>הפרופיל שלי</h1><button class="back" data-go="week">חזרה</button></div>
   <div class="body">
+
     <div class="field">
       <label>השם שלי</label>
       <input id="nm" type="text" placeholder="למשל: סבתא רחל" autocomplete="off">
-      <div class="note">כדי שנדע של מי הנתונים כששולחים.</div>
     </div>
+
+    <div class="three">
+      <div><label>גיל</label><input id="pAge"  type="number" inputmode="numeric" min="1"  max="120"></div>
+      <div><label>גובה בס״מ</label><input id="pH" type="number" inputmode="numeric" min="80" max="230"></div>
+      <div><label>משקל בק״ג</label><input id="pW" type="number" inputmode="decimal" min="20" max="300"></div>
+    </div>
+
+    <div id="bmiBox"><div class="n" id="bmiN">—</div><div class="l">BMI · מדד מסת גוף</div></div>
+    <div class="note">מספר בלבד. האפליקציה לא מדרגת אותך ולא ממליצה כלום.</div>
+
+    <div class="sec">מה חשוב לי לעקוב אחריו בארוחות</div>
+    <div id="mkList"></div>
+    <div class="note">אחרי כל צילום תישאל בהקשה אחת מה מתוך אלה היה בארוחה. אם לא תבחר כלום — לא תישאל בכלל.</div>
+
+    <div class="sec">שליחת נתונים</div>
     <button class="bigbtn" id="send">שלח את הנתונים לרן</button>
     <div class="note" id="cnt"></div>
-    <button class="bigbtn sec" id="install" style="display:none">הוסף למסך הבית</button>
-    <button class="bigbtn sec" id="wipe">מחק הכל מהמכשיר</button>
-    <div class="ver">מראה · גרסה 1.0 · הנתונים נשמרים במכשיר שלך בלבד</div>
+
+    <div class="sec">אחר</div>
+    <button class="bigbtn sec2" id="install" style="display:none">הוסף למסך הבית</button>
+    <button class="bigbtn sec2" id="wipe">מחק הכל מהמכשיר</button>
+    <div class="ver">מראה · גרסה 1.1 · הנתונים נשמרים במכשיר שלך בלבד</div>
   </div>
 </section>
 
@@ -128,10 +162,19 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 
 <script>
 "use strict";
-const APP_VERSION = "1.0";
+const APP_VERSION = "1.1";
 const DAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+const MARKERS = [
+  {k:"sodium",   n:"מלח / נתרן"},
+  {k:"sugar",    n:"סוכר"},
+  {k:"lactose",  n:"חלב / לקטוז"},
+  {k:"gluten",   n:"גלוטן"},
+  {k:"caffeine", n:"קפאין"},
+  {k:"alcohol",  n:"אלכוהול"}
+];
+const MNAME = Object.fromEntries(MARKERS.map(m=>[m.k,m.n]));
 
-/* ========== אחסון ========== */
+/* ===== אחסון ===== */
 let db;
 function openDB(){
   return new Promise((res,rej)=>{
@@ -146,23 +189,27 @@ function openDB(){
     r.onerror = ()=>rej(r.error);
   });
 }
-function tx(store,mode){return db.transaction(store,mode).objectStore(store)}
-function put(store,val){return new Promise((res,rej)=>{const q=tx(store,"readwrite").put(val);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
-function getAll(store){return new Promise((res,rej)=>{const q=tx(store,"readonly").getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}
-function get(store,k){return new Promise((res,rej)=>{const q=tx(store,"readonly").get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+function tx(s,m){return db.transaction(s,m).objectStore(s)}
+function put(s,v){return new Promise((res,rej)=>{const q=tx(s,"readwrite").put(v);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+function getAll(s){return new Promise((res,rej)=>{const q=tx(s,"readonly").getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}
+function get(s,k){return new Promise((res,rej)=>{const q=tx(s,"readonly").get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
 function clearStore(s){return new Promise((res,rej)=>{const q=tx(s,"readwrite").clear();q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
-
-async function meta(k,def){const v=await get("meta",k);return v===undefined?def:v.v}
+async function meta(k,d){const v=await get("meta",k);return v===undefined?d:v.v}
 async function setMeta(k,v){await put("meta",{k,v})}
 
-/* ========== עזר ========== */
+/* ===== עזר ===== */
 const $ = s=>document.querySelector(s);
 function pad(n){return n<10?"0"+n:""+n}
 function dayKey(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
 function hhmm(d){return pad(d.getHours())+":"+pad(d.getMinutes())}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function calcBMI(h,w){
+  const hm = Number(h)/100, kg = Number(w);
+  if(!hm || !kg || hm<0.5 || hm>2.5 || kg<10) return null;
+  return Math.round((kg/(hm*hm))*10)/10;
+}
 
-/* ========== ניווט ========== */
+/* ===== ניווט ===== */
 function go(id){
   document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
   $("#"+id).classList.add("on");
@@ -175,15 +222,14 @@ document.addEventListener("click",e=>{
   if(b) go(b.dataset.go);
 });
 
-/* ========== צילום ושמירה ========== */
+/* ===== צילום ===== */
 $("#shoot").addEventListener("click",()=>$("#pick").click());
-
 $("#pick").addEventListener("change",async e=>{
   const f = e.target.files && e.target.files[0];
   e.target.value = "";
   if(!f) return;
   try{ await savePhoto(f); }
-  catch(err){ alert("לא הצלחנו לשמור את התמונה. נסה שוב."); }
+  catch(err){ alert("לא הצלחנו לשמור את התמונה. נסה שוב."); go("home"); }
 });
 
 async function toBitmap(file){
@@ -199,20 +245,21 @@ async function toBitmap(file){
   });
 }
 function draw(src,max,type,q){
-  const w = src.width, h = src.height;
-  const s = Math.min(1, max/Math.max(w,h));
-  const c = document.createElement("canvas");
-  c.width = Math.max(1,Math.round(w*s)); c.height = Math.max(1,Math.round(h*s));
+  const w=src.width,h=src.height,s=Math.min(1,max/Math.max(w,h));
+  const c=document.createElement("canvas");
+  c.width=Math.max(1,Math.round(w*s)); c.height=Math.max(1,Math.round(h*s));
   c.getContext("2d").drawImage(src,0,0,c.width,c.height);
   return c.toDataURL(type,q);
 }
 function dataURLtoBlob(u){
-  const [head,b64] = u.split(",");
-  const mime = head.match(/:(.*?);/)[1];
-  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  const [head,b64]=u.split(","), mime=head.match(/:(.*?);/)[1];
+  const bin=atob(b64), arr=new Uint8Array(bin.length);
   for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   return new Blob([arr],{type:mime});
 }
+
+let pendingId = null, pendingMarks = [];
+let autoTimer = null;
 
 async function savePhoto(file){
   const bmp   = await toBitmap(file);
@@ -220,11 +267,10 @@ async function savePhoto(file){
   const thumb = draw(bmp,150,"image/jpeg",0.5);
   if(bmp.close) bmp.close();
 
-  const now = new Date();
-  const id  = uid();
-  const ev  = {
-    id,
-    type:"meal_photo",
+  const now = new Date(), id = uid();
+  const chosen = await meta("markers",[]);
+  const ev = {
+    id, type:"meal_photo",
     recorded_at: now.toISOString(),
     occurred_at: now.toISOString(),
     occurred_at_precision:"exact",
@@ -232,75 +278,161 @@ async function savePhoto(file){
     device_id: await meta("device_id",""),
     app_version: APP_VERSION,
     source_bytes: file.size,
+    markers_asked: chosen.slice(),
+    markers: [],
     thumb
   };
   await put("photos",{id, blob: dataURLtoBlob(full)});
   await put("events",ev);
 
+  pendingId = id; pendingMarks = [];
   $("#savedImg").src = thumb;
-  $("#savedTxt").textContent = "נשמר ✓";
+  buildSavedPanel(chosen);
   go("saved");
-  setTimeout(()=>{ $("#savedImg").src=""; go("home"); },1500);
 }
 
-/* ========== מסך היום ========== */
+function buildSavedPanel(chosen){
+  clearTimeout(autoTimer);
+  const chips = $("#savedChips"), q = $("#savedQ"), done = $("#doneBtn");
+  chips.innerHTML = "";
+  if(!chosen.length){
+    q.textContent = ""; done.style.display = "none";
+    autoTimer = setTimeout(closeSaved,1500);
+    return;
+  }
+  q.textContent = "מה מתוך אלה היה בארוחה?";
+  done.style.display = "inline-block";
+  for(const k of chosen){
+    const b = document.createElement("button");
+    b.className = "chip"; b.textContent = MNAME[k] || k; b.dataset.k = k;
+    b.addEventListener("click",()=>{
+      const i = pendingMarks.indexOf(k);
+      if(i<0){ pendingMarks.push(k); b.classList.add("on"); }
+      else { pendingMarks.splice(i,1); b.classList.remove("on"); }
+    });
+    chips.appendChild(b);
+  }
+}
+$("#doneBtn").addEventListener("click",async ()=>{
+  if(pendingId){
+    const ev = await get("events",pendingId);
+    if(ev){ ev.markers = pendingMarks.slice(); await put("events",ev); }
+  }
+  closeSaved();
+});
+function closeSaved(){
+  clearTimeout(autoTimer);
+  pendingId = null; pendingMarks = [];
+  $("#savedImg").src = ""; $("#savedChips").innerHTML = "";
+  go("home");
+}
+
+/* ===== היום ===== */
 async function renderToday(){
   const all = await getAll("events");
   const k = dayKey(new Date());
   const list = all.filter(e=>e.day===k).sort((a,b)=>a.recorded_at<b.recorded_at?1:-1);
   $("#todaySum").textContent = list.length ? ("נרשמו " + list.length + " צילומים") : "";
-  const box = $("#todayList");
-  box.innerHTML = "";
-  if(!list.length){
-    box.innerHTML = '<div class="empty">כאן יופיעו הצילומים של היום</div>';
-    return;
-  }
+  const box = $("#todayList"); box.innerHTML = "";
+  if(!list.length){ box.innerHTML = '<div class="empty">כאן יופיעו הצילומים של היום</div>'; return; }
   for(const e of list){
     const d = new Date(e.recorded_at);
-    const row = document.createElement("div");
-    row.className = "item";
-    row.innerHTML = '<img src="'+e.thumb+'" alt=""><div class="t">'+hhmm(d)+'</div>';
-    box.appendChild(row);
+    const row = document.createElement("div"); row.className = "item";
+    const img = document.createElement("img"); img.src = e.thumb; img.alt = "";
+    const txt = document.createElement("div");
+    const marks = (e.markers||[]).map(k=>MNAME[k]||k).join(" · ");
+    txt.innerHTML = '<div class="t"></div><div class="mk"></div>';
+    txt.querySelector(".t").textContent = hhmm(d);
+    txt.querySelector(".mk").textContent = marks;
+    row.appendChild(img); row.appendChild(txt); box.appendChild(row);
   }
 }
 
-/* ========== מסך השבוע ========== */
+/* ===== השבוע ===== */
 async function renderWeek(){
   const all = await getAll("events");
-  const box = $("#weekList"); box.innerHTML="";
+  const box = $("#weekList"); box.innerHTML = "";
   for(let i=6;i>=0;i--){
     const d = new Date(); d.setDate(d.getDate()-i);
     const k = dayKey(d);
-    const n = all.filter(e=>e.day===k).length;
-    const row = document.createElement("div");
-    row.className = "wrow";
-    let dots = "";
-    for(let j=0;j<n && j<10;j++) dots += '<span class="dot f"></span>';
-    if(!n) dots = '<span class="wnone">—</span>';
-    const label = (i===0? "היום" : DAYS[d.getDay()]);
-    row.innerHTML = '<div class="wday">'+label+'</div>'+dots;
+    const evs = all.filter(e=>e.day===k);
+    const row = document.createElement("div"); row.className = "wrow";
+    const lab = document.createElement("div"); lab.className = "wday";
+    lab.textContent = (i===0 ? "היום" : DAYS[d.getDay()]);
+    row.appendChild(lab);
+    if(!evs.length){
+      const s = document.createElement("span"); s.className = "wnone"; s.textContent = "—"; row.appendChild(s);
+    } else {
+      evs.slice(0,10).forEach(e=>{
+        const s = document.createElement("span");
+        s.className = "dot" + ((e.markers && e.markers.length) ? " f" : "");
+        row.appendChild(s);
+      });
+    }
     box.appendChild(row);
   }
 }
 
-/* ========== הגדרות, ייצוא ושליחה ========== */
+/* ===== פרופיל והגדרות ===== */
 async function renderSet(){
-  $("#nm").value = await meta("name","");
+  const p = await meta("profile",{});
+  $("#nm").value  = await meta("name","");
+  $("#pAge").value = p.age || "";
+  $("#pH").value   = p.height_cm || "";
+  $("#pW").value   = p.weight_kg || "";
+  showBMI();
+  const chosen = await meta("markers",[]);
+  const box = $("#mkList"); box.innerHTML = "";
+  for(const m of MARKERS){
+    const row = document.createElement("div");
+    row.className = "mkrow" + (chosen.includes(m.k) ? " on" : "");
+    const bx = document.createElement("div"); bx.className = "box"; bx.textContent = chosen.includes(m.k) ? "✓" : "";
+    const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = m.n;
+    row.appendChild(bx); row.appendChild(nm);
+    row.addEventListener("click", async ()=>{
+      let cur = await meta("markers",[]);
+      if(cur.includes(m.k)) cur = cur.filter(x=>x!==m.k); else cur = cur.concat([m.k]);
+      await setMeta("markers",cur);
+      row.classList.toggle("on"); bx.textContent = row.classList.contains("on") ? "✓" : "";
+    });
+    box.appendChild(row);
+  }
   const all = await getAll("events");
   $("#cnt").textContent = "נשמרו עד כה " + all.length + " צילומים.";
 }
+function showBMI(){
+  const b = calcBMI($("#pH").value, $("#pW").value);
+  $("#bmiN").textContent = b === null ? "—" : b.toFixed(1);
+}
+async function saveProfile(){
+  await setMeta("profile",{
+    age:       Number($("#pAge").value) || null,
+    height_cm: Number($("#pH").value)   || null,
+    weight_kg: Number($("#pW").value)   || null
+  });
+  showBMI();
+}
+["pAge","pH","pW"].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener("input", showBMI);
+  el.addEventListener("change", saveProfile);
+});
 $("#nm").addEventListener("change", async e=> await setMeta("name", e.target.value.trim()));
 
+/* ===== ייצוא ===== */
 async function buildExport(){
   const events = await getAll("events");
   events.sort((a,b)=>a.recorded_at<b.recorded_at?-1:1);
+  const p = await meta("profile",{});
   return {
-    app:"healthmirror",
-    app_version: APP_VERSION,
+    app:"healthmirror", app_version: APP_VERSION,
     exported_at: new Date().toISOString(),
     timezone_offset_minutes: new Date().getTimezoneOffset(),
     device_id: await meta("device_id",""),
     display_name: await meta("name",""),
+    profile: { age:p.age||null, height_cm:p.height_cm||null, weight_kg:p.weight_kg||null,
+               bmi: calcBMI(p.height_cm,p.weight_kg) },
+    markers_tracked: await meta("markers",[]),
     first_open_at: await meta("first_open_at",""),
     opens: await meta("opens",[]),
     event_count: events.length,
@@ -308,6 +440,7 @@ async function buildExport(){
   };
 }
 $("#send").addEventListener("click", async ()=>{
+  await saveProfile();
   const name = ($("#nm").value||"").trim();
   if(name) await setMeta("name",name);
   const data = await buildExport();
@@ -315,9 +448,9 @@ $("#send").addEventListener("click", async ()=>{
   const fname = "מראה-" + safe + "-" + dayKey(new Date()) + ".json";
   const blob = new Blob([JSON.stringify(data,null,1)],{type:"application/json"});
   const file = new File([blob],fname,{type:"application/json"});
-
   if(navigator.canShare && navigator.canShare({files:[file]})){
-    try{ await navigator.share({files:[file],title:"נתוני מראה"}); return; }catch(err){ if(err && err.name==="AbortError") return; }
+    try{ await navigator.share({files:[file],title:"נתוני מראה"}); return; }
+    catch(err){ if(err && err.name==="AbortError") return; }
   }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob); a.download = fname;
@@ -329,25 +462,21 @@ $("#send").addEventListener("click", async ()=>{
 $("#wipe").addEventListener("click", async ()=>{
   if(!confirm("למחוק את כל הצילומים מהמכשיר? אי אפשר לשחזר.")) return;
   await clearStore("events"); await clearStore("photos");
-  alert("נמחק.");
-  renderSet();
+  alert("נמחק."); renderSet();
 });
 
-/* ========== התקנה למסך הבית ========== */
+/* ===== התקנה ===== */
 let deferredPrompt = null;
 window.addEventListener("beforeinstallprompt", e=>{
-  e.preventDefault(); deferredPrompt = e;
-  $("#install").style.display = "block";
+  e.preventDefault(); deferredPrompt = e; $("#install").style.display = "block";
 });
 $("#install").addEventListener("click", async ()=>{
   if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  $("#install").style.display = "none";
+  deferredPrompt.prompt(); await deferredPrompt.userChoice;
+  deferredPrompt = null; $("#install").style.display = "none";
 });
 
-/* ========== עלייה ========== */
+/* ===== עלייה ===== */
 (async function init(){
   await openDB();
   if(!(await meta("device_id",null))) await setMeta("device_id", uid()+uid());
