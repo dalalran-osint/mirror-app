@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#1a1a1c">
+<meta name="mobile-web-app-capable" content="yes">
+<title>מראה</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%;overflow:hidden}
+body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:#fff;
+     font-size:18px;line-height:1.5;direction:rtl;-webkit-user-select:none;user-select:none}
+.scr{position:fixed;inset:0;display:none;flex-direction:column}
+.scr.on{display:flex}
+
+/* ---------- מסך 1 : בית / צילום ---------- */
+#home{background:#1a1a1c;align-items:center;justify-content:flex-end;padding-bottom:calc(38px + env(safe-area-inset-bottom))}
+#home .brand{position:absolute;top:calc(30px + env(safe-area-inset-top));right:0;left:0;text-align:center;color:#8e8e93;font-size:17px}
+#shoot{width:170px;height:170px;border-radius:50%;background:#fff;color:#111;border:none;
+       font-size:21px;font-weight:700;font-family:inherit;box-shadow:0 6px 22px rgba(0,0,0,.5)}
+#shoot:active{transform:scale(.96)}
+#home .toToday{margin-top:30px;color:#fff;font-size:20px;background:#2c2c30;border:none;
+       font-family:inherit;padding:14px 34px;border-radius:30px}
+
+/* ---------- מסך 2 : נשמר ---------- */
+#saved{background:#000;align-items:center;justify-content:center}
+#saved img{max-width:100%;max-height:100%;object-fit:contain}
+#saved .ok{position:absolute;bottom:0;right:0;left:0;background:rgba(0,0,0,.78);
+       padding:26px calc(18px + env(safe-area-inset-right)) calc(30px + env(safe-area-inset-bottom));
+       text-align:center;font-size:26px;font-weight:700}
+
+/* ---------- מסכים בהירים ---------- */
+.light{background:#fff;color:#111}
+.top{display:flex;align-items:center;justify-content:space-between;
+     padding:calc(16px + env(safe-area-inset-top)) 18px 12px;border-bottom:1px solid #e6e6e6;flex:0 0 auto}
+.top h1{margin:0;font-size:26px}
+.back{background:none;border:none;font-family:inherit;font-size:20px;color:#0a63c9;padding:8px}
+.body{flex:1 1 auto;overflow-y:auto;padding:0 0 40px}
+.sum{padding:16px 18px 6px;font-size:20px;color:#333}
+.item{display:flex;align-items:center;gap:14px;padding:9px 18px}
+.item img{width:82px;height:82px;object-fit:cover;border-radius:12px;background:#e8e8e8;flex:0 0 auto}
+.item .t{font-size:20px;color:#222}
+.empty{padding:40px 18px;color:#8a8a8a;font-size:20px;text-align:center}
+.wrow{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid #f0f0f0}
+.wday{width:104px;font-size:19px;color:#333}
+.dot{width:19px;height:19px;border-radius:50%;background:#dedede;flex:0 0 auto}
+.dot.f{background:#2b2b2b}
+.wnone{color:#b0b0b0;font-size:18px}
+.linkbar{padding:22px 18px;text-align:center}
+.linkbar button{background:none;border:none;font-family:inherit;font-size:19px;color:#0a63c9}
+
+/* ---------- הגדרות ---------- */
+.field{padding:14px 18px}
+.field label{display:block;font-size:18px;color:#444;margin-bottom:6px}
+.field input{width:100%;font-family:inherit;font-size:20px;padding:13px;border:1px solid #ccc;border-radius:10px;direction:rtl}
+.bigbtn{display:block;width:calc(100% - 36px);margin:12px 18px;padding:18px;border-radius:14px;
+        border:none;font-family:inherit;font-size:20px;font-weight:700;background:#0a63c9;color:#fff}
+.bigbtn.sec{background:#efefef;color:#222;font-weight:400}
+.note{padding:6px 18px 0;color:#777;font-size:16px}
+.ver{padding:26px 18px;color:#aaa;font-size:14px;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- 1 · בית -->
+<section id="home" class="scr on">
+  <div class="brand">מראה</div>
+  <button id="shoot">צלם<br>ארוחה</button>
+  <button class="toToday" data-go="today">היום</button>
+</section>
+
+<!-- 2 · נשמר -->
+<section id="saved" class="scr">
+  <img id="savedImg" alt="">
+  <div class="ok" id="savedTxt">נשמר ✓</div>
+</section>
+
+<!-- 3 · היום -->
+<section id="today" class="scr light">
+  <div class="top">
+    <h1>היום</h1>
+    <button class="back" data-go="home">סגור</button>
+  </div>
+  <div class="body">
+    <div class="sum" id="todaySum"></div>
+    <div id="todayList"></div>
+    <div class="linkbar"><button data-go="week">השבוע ←</button></div>
+  </div>
+</section>
+
+<!-- 4 · השבוע -->
+<section id="week" class="scr light">
+  <div class="top">
+    <h1>השבוע</h1>
+    <button class="back" data-go="today">חזרה</button>
+  </div>
+  <div class="body">
+    <div id="weekList"></div>
+    <div class="linkbar"><button data-go="set">הגדרות</button></div>
+  </div>
+</section>
+
+<!-- 5 · הגדרות -->
+<section id="set" class="scr light">
+  <div class="top">
+    <h1>הגדרות</h1>
+    <button class="back" data-go="week">חזרה</button>
+  </div>
+  <div class="body">
+    <div class="field">
+      <label>השם שלי</label>
+      <input id="nm" type="text" placeholder="למשל: סבתא רחל" autocomplete="off">
+      <div class="note">כדי שנדע של מי הנתונים כששולחים.</div>
+    </div>
+    <button class="bigbtn" id="send">שלח את הנתונים לרן</button>
+    <div class="note" id="cnt"></div>
+    <button class="bigbtn sec" id="install" style="display:none">הוסף למסך הבית</button>
+    <button class="bigbtn sec" id="wipe">מחק הכל מהמכשיר</button>
+    <div class="ver">מראה · גרסה 1.0 · הנתונים נשמרים במכשיר שלך בלבד</div>
+  </div>
+</section>
+
+<input type="file" id="pick" accept="image/*" capture="environment" style="display:none">
+
+<script>
+"use strict";
+const APP_VERSION = "1.0";
+const DAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+
+/* ========== אחסון ========== */
+let db;
+function openDB(){
+  return new Promise((res,rej)=>{
+    const r = indexedDB.open("healthmirror",1);
+    r.onupgradeneeded = e=>{
+      const d = e.target.result;
+      if(!d.objectStoreNames.contains("events")) d.createObjectStore("events",{keyPath:"id"});
+      if(!d.objectStoreNames.contains("photos")) d.createObjectStore("photos",{keyPath:"id"});
+      if(!d.objectStoreNames.contains("meta"))   d.createObjectStore("meta",{keyPath:"k"});
+    };
+    r.onsuccess = ()=>{db=r.result;res()};
+    r.onerror = ()=>rej(r.error);
+  });
+}
+function tx(store,mode){return db.transaction(store,mode).objectStore(store)}
+function put(store,val){return new Promise((res,rej)=>{const q=tx(store,"readwrite").put(val);q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+function getAll(store){return new Promise((res,rej)=>{const q=tx(store,"readonly").getAll();q.onsuccess=()=>res(q.result||[]);q.onerror=()=>rej(q.error)})}
+function get(store,k){return new Promise((res,rej)=>{const q=tx(store,"readonly").get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+function clearStore(s){return new Promise((res,rej)=>{const q=tx(s,"readwrite").clear();q.onsuccess=()=>res();q.onerror=()=>rej(q.error)})}
+
+async function meta(k,def){const v=await get("meta",k);return v===undefined?def:v.v}
+async function setMeta(k,v){await put("meta",{k,v})}
+
+/* ========== עזר ========== */
+const $ = s=>document.querySelector(s);
+function pad(n){return n<10?"0"+n:""+n}
+function dayKey(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function hhmm(d){return pad(d.getHours())+":"+pad(d.getMinutes())}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+
+/* ========== ניווט ========== */
+function go(id){
+  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
+  $("#"+id).classList.add("on");
+  if(id==="today") renderToday();
+  if(id==="week")  renderWeek();
+  if(id==="set")   renderSet();
+}
+document.addEventListener("click",e=>{
+  const b = e.target.closest("[data-go]");
+  if(b) go(b.dataset.go);
+});
+
+/* ========== צילום ושמירה ========== */
+$("#shoot").addEventListener("click",()=>$("#pick").click());
+
+$("#pick").addEventListener("change",async e=>{
+  const f = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if(!f) return;
+  try{ await savePhoto(f); }
+  catch(err){ alert("לא הצלחנו לשמור את התמונה. נסה שוב."); }
+});
+
+async function toBitmap(file){
+  if(self.createImageBitmap){
+    try{ return await createImageBitmap(file,{imageOrientation:"from-image"}); }catch(_){}
+    try{ return await createImageBitmap(file); }catch(_){}
+  }
+  return await new Promise((res,rej)=>{
+    const img=new Image(), u=URL.createObjectURL(file);
+    img.onload=()=>{URL.revokeObjectURL(u);res(img)};
+    img.onerror=()=>{URL.revokeObjectURL(u);rej(new Error("decode"))};
+    img.src=u;
+  });
+}
+function draw(src,max,type,q){
+  const w = src.width, h = src.height;
+  const s = Math.min(1, max/Math.max(w,h));
+  const c = document.createElement("canvas");
+  c.width = Math.max(1,Math.round(w*s)); c.height = Math.max(1,Math.round(h*s));
+  c.getContext("2d").drawImage(src,0,0,c.width,c.height);
+  return c.toDataURL(type,q);
+}
+function dataURLtoBlob(u){
+  const [head,b64] = u.split(",");
+  const mime = head.match(/:(.*?);/)[1];
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  return new Blob([arr],{type:mime});
+}
+
+async function savePhoto(file){
+  const bmp   = await toBitmap(file);
+  const full  = draw(bmp,1100,"image/jpeg",0.72);
+  const thumb = draw(bmp,150,"image/jpeg",0.5);
+  if(bmp.close) bmp.close();
+
+  const now = new Date();
+  const id  = uid();
+  const ev  = {
+    id,
+    type:"meal_photo",
+    recorded_at: now.toISOString(),
+    occurred_at: now.toISOString(),
+    occurred_at_precision:"exact",
+    day: dayKey(now),
+    device_id: await meta("device_id",""),
+    app_version: APP_VERSION,
+    source_bytes: file.size,
+    thumb
+  };
+  await put("photos",{id, blob: dataURLtoBlob(full)});
+  await put("events",ev);
+
+  $("#savedImg").src = thumb;
+  $("#savedTxt").textContent = "נשמר ✓";
+  go("saved");
+  setTimeout(()=>{ $("#savedImg").src=""; go("home"); },1500);
+}
+
+/* ========== מסך היום ========== */
+async function renderToday(){
+  const all = await getAll("events");
+  const k = dayKey(new Date());
+  const list = all.filter(e=>e.day===k).sort((a,b)=>a.recorded_at<b.recorded_at?1:-1);
+  $("#todaySum").textContent = list.length ? ("נרשמו " + list.length + " צילומים") : "";
+  const box = $("#todayList");
+  box.innerHTML = "";
+  if(!list.length){
+    box.innerHTML = '<div class="empty">כאן יופיעו הצילומים של היום</div>';
+    return;
+  }
+  for(const e of list){
+    const d = new Date(e.recorded_at);
+    const row = document.createElement("div");
+    row.className = "item";
+    row.innerHTML = '<img src="'+e.thumb+'" alt=""><div class="t">'+hhmm(d)+'</div>';
+    box.appendChild(row);
+  }
+}
+
+/* ========== מסך השבוע ========== */
+async function renderWeek(){
+  const all = await getAll("events");
+  const box = $("#weekList"); box.innerHTML="";
+  for(let i=6;i>=0;i--){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const k = dayKey(d);
+    const n = all.filter(e=>e.day===k).length;
+    const row = document.createElement("div");
+    row.className = "wrow";
+    let dots = "";
+    for(let j=0;j<n && j<10;j++) dots += '<span class="dot f"></span>';
+    if(!n) dots = '<span class="wnone">—</span>';
+    const label = (i===0? "היום" : DAYS[d.getDay()]);
+    row.innerHTML = '<div class="wday">'+label+'</div>'+dots;
+    box.appendChild(row);
+  }
+}
+
+/* ========== הגדרות, ייצוא ושליחה ========== */
+async function renderSet(){
+  $("#nm").value = await meta("name","");
+  const all = await getAll("events");
+  $("#cnt").textContent = "נשמרו עד כה " + all.length + " צילומים.";
+}
+$("#nm").addEventListener("change", async e=> await setMeta("name", e.target.value.trim()));
+
+async function buildExport(){
+  const events = await getAll("events");
+  events.sort((a,b)=>a.recorded_at<b.recorded_at?-1:1);
+  return {
+    app:"healthmirror",
+    app_version: APP_VERSION,
+    exported_at: new Date().toISOString(),
+    timezone_offset_minutes: new Date().getTimezoneOffset(),
+    device_id: await meta("device_id",""),
+    display_name: await meta("name",""),
+    first_open_at: await meta("first_open_at",""),
+    opens: await meta("opens",[]),
+    event_count: events.length,
+    events
+  };
+}
+$("#send").addEventListener("click", async ()=>{
+  const name = ($("#nm").value||"").trim();
+  if(name) await setMeta("name",name);
+  const data = await buildExport();
+  const safe = (name||"מכשיר").replace(/[\\/:*?"<>|]/g,"");
+  const fname = "מראה-" + safe + "-" + dayKey(new Date()) + ".json";
+  const blob = new Blob([JSON.stringify(data,null,1)],{type:"application/json"});
+  const file = new File([blob],fname,{type:"application/json"});
+
+  if(navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:"נתוני מראה"}); return; }catch(err){ if(err && err.name==="AbortError") return; }
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = fname;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  alert("הקובץ ירד למכשיר. אפשר לשלוח אותו בוואטסאפ מתוך תיקיית ההורדות.");
+});
+
+$("#wipe").addEventListener("click", async ()=>{
+  if(!confirm("למחוק את כל הצילומים מהמכשיר? אי אפשר לשחזר.")) return;
+  await clearStore("events"); await clearStore("photos");
+  alert("נמחק.");
+  renderSet();
+});
+
+/* ========== התקנה למסך הבית ========== */
+let deferredPrompt = null;
+window.addEventListener("beforeinstallprompt", e=>{
+  e.preventDefault(); deferredPrompt = e;
+  $("#install").style.display = "block";
+});
+$("#install").addEventListener("click", async ()=>{
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  $("#install").style.display = "none";
+});
+
+/* ========== עלייה ========== */
+(async function init(){
+  await openDB();
+  if(!(await meta("device_id",null))) await setMeta("device_id", uid()+uid());
+  if(!(await meta("first_open_at",null))) await setMeta("first_open_at", new Date().toISOString());
+  const opens = await meta("opens",[]);
+  opens.push(new Date().toISOString());
+  await setMeta("opens", opens.slice(-500));
+  if("serviceWorker" in navigator){ try{ await navigator.serviceWorker.register("sw.js"); }catch(_){} }
+})();
+</script>
+</body>
+</html>
