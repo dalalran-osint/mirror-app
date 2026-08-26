@@ -167,7 +167,7 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
     <div class="sec">אחר</div>
     <button class="bigbtn sec2" id="install" style="display:none">הוסף למסך הבית</button>
     <button class="bigbtn sec2" id="wipe">מחק הכל מהמכשיר</button>
-    <div class="ver">מראה · גרסה 1.2 · הנתונים נשמרים במכשיר שלך בלבד</div>
+    <div class="ver">מראה · גרסה 1.2.1 · הנתונים נשמרים במכשיר שלך בלבד</div>
   </div>
 </section>
 
@@ -175,7 +175,7 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 
 <script>
 "use strict";
-const APP_VERSION = "1.2";
+const APP_VERSION = "1.2.1";
 const DAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
 
 /* כל שורה: המצב שהמשתמש מסמן, הרכיב שנבדק בארוחה, ונוסח ההתראה */
@@ -517,7 +517,18 @@ $("#install").addEventListener("click", async ()=>{
   const opens=await meta("opens",[]);
   opens.push(new Date().toISOString());
   await setMeta("opens", opens.slice(-500));
-  if("serviceWorker" in navigator){ try{ await navigator.serviceWorker.register("sw.js"); }catch(_){} }
+  if("serviceWorker" in navigator){
+    try{
+      // אם כבר יש גרסה פעילה ומגיעה חדשה — טוענים מחדש פעם אחת, כדי שהעדכון יופיע מיד.
+      const hadController = !!navigator.serviceWorker.controller;
+      let reloaded = false;
+      navigator.serviceWorker.addEventListener("controllerchange", ()=>{
+        if(hadController && !reloaded){ reloaded = true; location.reload(); }
+      });
+      const reg = await navigator.serviceWorker.register("sw.js");
+      reg.update().catch(()=>{});
+    }catch(_){}
+  }
 })();
 </script>
 </body>
