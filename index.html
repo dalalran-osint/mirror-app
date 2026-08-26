@@ -26,17 +26,21 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 #home .toToday{margin-top:30px;color:#fff;font-size:20px;background:#2c2c30;border:none;
        font-family:inherit;padding:14px 34px;border-radius:30px}
 
-/* 2 · נשמר + תיוג */
+/* 2 · נשמר + תיוג + אזהרה */
 #saved{background:#000;align-items:center;justify-content:center}
 #savedImg{max-width:100%;max-height:100%;object-fit:contain}
-#savedPanel{position:absolute;bottom:0;right:0;left:0;background:rgba(0,0,0,.82);
+#savedPanel{position:absolute;bottom:0;right:0;left:0;background:rgba(0,0,0,.85);
        padding:20px 16px calc(24px + env(safe-area-inset-bottom));text-align:center}
 #savedPanel .ok{font-size:24px;font-weight:700;margin-bottom:4px}
 #savedPanel .q{font-size:18px;color:#c9c9ce;margin-bottom:12px}
-.chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:12px}
 .chip{background:#2f2f34;color:#fff;border:2px solid #4a4a52;border-radius:24px;
       padding:12px 20px;font-family:inherit;font-size:19px}
-.chip.on{background:#fff;color:#111;border-color:#fff;font-weight:700}
+.chip.on{background:#e8a33d;color:#1a1a1c;border-color:#e8a33d;font-weight:700}
+#warnBox{display:none;background:#4a3410;border:2px solid #e8a33d;border-radius:12px;
+      padding:14px;margin:0 0 14px;text-align:right}
+#warnBox .wt{font-size:20px;font-weight:700;color:#ffce7a;margin-bottom:4px}
+#warnBox .ws{font-size:16px;color:#d8c6a6}
 #doneBtn{background:#0a63c9;color:#fff;border:none;border-radius:14px;
       padding:16px 46px;font-family:inherit;font-size:20px;font-weight:700}
 
@@ -47,21 +51,23 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 .top h1{margin:0;font-size:26px}
 .back{background:none;border:none;font-family:inherit;font-size:20px;color:#0a63c9;padding:8px}
 .body{flex:1 1 auto;overflow-y:auto;padding:0 0 40px}
-.sum{padding:16px 18px 6px;font-size:20px;color:#333}
+.sum{padding:16px 18px 4px;font-size:20px;color:#333}
+.sumw{padding:0 18px 8px;font-size:19px;color:#a05a00;font-weight:700}
 .item{display:flex;align-items:center;gap:14px;padding:9px 18px}
+.item.warn{background:#fdf6ea}
 .item img{width:82px;height:82px;object-fit:cover;border-radius:12px;background:#e8e8e8;flex:0 0 auto}
 .item .t{font-size:20px;color:#222}
-.item .mk{font-size:16px;color:#6b6b6b;margin-top:2px}
+.item .mk{font-size:16px;color:#a05a00;margin-top:2px;font-weight:700}
 .empty{padding:40px 18px;color:#8a8a8a;font-size:20px;text-align:center}
 .wrow{display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid #f0f0f0}
 .wday{width:104px;font-size:19px;color:#333}
 .dot{width:19px;height:19px;border-radius:50%;background:#dedede;flex:0 0 auto}
-.dot.f{background:#2b2b2b}
+.dot.f{background:#e8a33d}
 .wnone{color:#b0b0b0;font-size:18px}
 .linkbar{padding:22px 18px;text-align:center}
 .linkbar button{background:none;border:none;font-family:inherit;font-size:19px;color:#0a63c9}
 
-/* הגדרות ופרופיל */
+/* פרופיל והגדרות */
 .sec{padding:18px 18px 4px;font-size:17px;color:#7a7a7a;font-weight:700}
 .field{padding:10px 18px}
 .field label{display:block;font-size:18px;color:#444;margin-bottom:6px}
@@ -73,15 +79,17 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 #bmiBox{margin:12px 18px;padding:16px;border-radius:12px;background:#f4f6f8;border:1px solid #e0e5ea;text-align:center}
 #bmiBox .n{font-size:34px;font-weight:700;color:#111;direction:ltr}
 #bmiBox .l{font-size:16px;color:#777}
-.mkrow{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid #f0f0f0}
-.mkrow .box{width:28px;height:28px;border-radius:7px;border:2px solid #b5b5b5;flex:0 0 auto;
+.mkrow{display:flex;align-items:flex-start;gap:12px;padding:15px 18px;border-bottom:1px solid #f0f0f0}
+.mkrow .box{width:28px;height:28px;border-radius:7px;border:2px solid #b5b5b5;flex:0 0 auto;margin-top:2px;
      display:flex;align-items:center;justify-content:center;font-size:19px;color:#fff}
-.mkrow.on .box{background:#0a63c9;border-color:#0a63c9}
+.mkrow.on .box{background:#e8a33d;border-color:#e8a33d;color:#1a1a1c}
 .mkrow .nm{font-size:20px;color:#111}
+.mkrow .sb{font-size:16px;color:#7a7a7a;margin-top:1px}
 .bigbtn{display:block;width:calc(100% - 36px);margin:12px 18px;padding:18px;border-radius:14px;
         border:none;font-family:inherit;font-size:20px;font-weight:700;background:#0a63c9;color:#fff}
 .bigbtn.sec2{background:#efefef;color:#222;font-weight:400}
 .note{padding:4px 18px 0;color:#777;font-size:16px}
+.disc{margin:14px 18px;padding:12px 14px;background:#f7f7f7;border-right:4px solid #c9c9c9;color:#666;font-size:16px}
 .ver{padding:26px 18px;color:#aaa;font-size:14px;text-align:center}
 </style>
 </head>
@@ -94,13 +102,14 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
   <button class="toToday" data-go="today">היום</button>
 </section>
 
-<!-- 2 · נשמר + תיוג -->
+<!-- 2 · נשמר -->
 <section id="saved" class="scr">
   <img id="savedImg" alt="">
   <div id="savedPanel">
     <div class="ok">נשמר ✓</div>
     <div class="q" id="savedQ"></div>
     <div class="chips" id="savedChips"></div>
+    <div id="warnBox"><div class="wt" id="warnT"></div><div class="ws" id="warnS"></div></div>
     <button id="doneBtn" style="display:none">סיום</button>
   </div>
 </section>
@@ -109,7 +118,8 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 <section id="today" class="scr light">
   <div class="top"><h1>היום</h1><button class="back" data-go="home">סגור</button></div>
   <div class="body">
-    <div class="sum" id="todaySum"></div>
+    <div class="sum"  id="todaySum"></div>
+    <div class="sumw" id="todayWarn"></div>
     <div id="todayList"></div>
     <div class="linkbar"><button data-go="week">השבוע ←</button></div>
   </div>
@@ -120,6 +130,7 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
   <div class="top"><h1>השבוע</h1><button class="back" data-go="today">חזרה</button></div>
   <div class="body">
     <div id="weekList"></div>
+    <div class="note" style="padding-top:14px">נקודה כתומה = ארוחה שקיבלת עליה התראה.</div>
     <div class="linkbar"><button data-go="set">הפרופיל וההגדרות שלי</button></div>
   </div>
 </section>
@@ -141,11 +152,13 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
     </div>
 
     <div id="bmiBox"><div class="n" id="bmiN">—</div><div class="l">BMI · מדד מסת גוף</div></div>
-    <div class="note">מספר בלבד. האפליקציה לא מדרגת אותך ולא ממליצה כלום.</div>
+    <div class="note">מספר בלבד. האפליקציה לא מדרגת אותך.</div>
 
-    <div class="sec">מה חשוב לי לעקוב אחריו בארוחות</div>
+    <div class="sec">על מה להזהיר אותי</div>
     <div id="mkList"></div>
-    <div class="note">אחרי כל צילום תישאל בהקשה אחת מה מתוך אלה היה בארוחה. אם לא תבחר כלום — לא תישאל בכלל.</div>
+    <div class="note">בחר מה רלוונטי לך. אחרי כל צילום תישאל בהקשה אחת מה היה בארוחה, ותקבל התראה על מה שסימנת.</div>
+
+    <div class="disc">האפליקציה אינה נותנת ייעוץ רפואי, אינה קובעת כמויות ואינה אומרת לך מה מותר לאכול. היא מזכירה לך רק את מה שאתה עצמך סימנת שרלוונטי עבורך. בכל שאלה רפואית — פנה לרופא שלך.</div>
 
     <div class="sec">שליחת נתונים</div>
     <button class="bigbtn" id="send">שלח את הנתונים לרן</button>
@@ -154,7 +167,7 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
     <div class="sec">אחר</div>
     <button class="bigbtn sec2" id="install" style="display:none">הוסף למסך הבית</button>
     <button class="bigbtn sec2" id="wipe">מחק הכל מהמכשיר</button>
-    <div class="ver">מראה · גרסה 1.1 · הנתונים נשמרים במכשיר שלך בלבד</div>
+    <div class="ver">מראה · גרסה 1.2 · הנתונים נשמרים במכשיר שלך בלבד</div>
   </div>
 </section>
 
@@ -162,17 +175,19 @@ body{font-family:system-ui,"Segoe UI",Arial,sans-serif;background:#1a1a1c;color:
 
 <script>
 "use strict";
-const APP_VERSION = "1.1";
+const APP_VERSION = "1.2";
 const DAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+
+/* כל שורה: המצב שהמשתמש מסמן, הרכיב שנבדק בארוחה, ונוסח ההתראה */
 const MARKERS = [
-  {k:"sodium",   n:"מלח / נתרן"},
-  {k:"sugar",    n:"סוכר"},
-  {k:"lactose",  n:"חלב / לקטוז"},
-  {k:"gluten",   n:"גלוטן"},
-  {k:"caffeine", n:"קפאין"},
-  {k:"alcohol",  n:"אלכוהול"}
+  {k:"sodium",   cond:"יתר לחץ דם",              n:"מלח / נתרן",    warn:"יש כאן מלח ונתרן"},
+  {k:"sugar",    cond:"סוכרת או סוכר גבוה",      n:"סוכר",          warn:"יש כאן סוכר"},
+  {k:"lactose",  cond:"רגישות ללקטוז",           n:"חלב / לקטוז",   warn:"יש כאן חלב"},
+  {k:"gluten",   cond:"רגישות לגלוטן או צליאק",  n:"גלוטן",         warn:"יש כאן גלוטן"},
+  {k:"caffeine", cond:"רגישות לקפאין",           n:"קפאין",         warn:"יש כאן קפאין"},
+  {k:"alcohol",  cond:"הימנעות מאלכוהול",        n:"אלכוהול",       warn:"יש כאן אלכוהול"}
 ];
-const MNAME = Object.fromEntries(MARKERS.map(m=>[m.k,m.n]));
+const M = Object.fromEntries(MARKERS.map(m=>[m.k,m]));
 
 /* ===== אחסון ===== */
 let db;
@@ -204,8 +219,8 @@ function dayKey(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getD
 function hhmm(d){return pad(d.getHours())+":"+pad(d.getMinutes())}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
 function calcBMI(h,w){
-  const hm = Number(h)/100, kg = Number(w);
-  if(!hm || !kg || hm<0.5 || hm>2.5 || kg<10) return null;
+  const hm=Number(h)/100, kg=Number(w);
+  if(!hm||!kg||hm<0.5||hm>2.5||kg<10) return null;
   return Math.round((kg/(hm*hm))*10)/10;
 }
 
@@ -258,8 +273,7 @@ function dataURLtoBlob(u){
   return new Blob([arr],{type:mime});
 }
 
-let pendingId = null, pendingMarks = [];
-let autoTimer = null;
+let pendingId=null, pendingMarks=[], autoTimer=null;
 
 async function savePhoto(file){
   const bmp   = await toBitmap(file);
@@ -267,7 +281,7 @@ async function savePhoto(file){
   const thumb = draw(bmp,150,"image/jpeg",0.5);
   if(bmp.close) bmp.close();
 
-  const now = new Date(), id = uid();
+  const now=new Date(), id=uid();
   const chosen = await meta("markers",[]);
   const ev = {
     id, type:"meal_photo",
@@ -280,92 +294,106 @@ async function savePhoto(file){
     source_bytes: file.size,
     markers_asked: chosen.slice(),
     markers: [],
+    warned: false,
+    tagging_source: "manual",
     thumb
   };
   await put("photos",{id, blob: dataURLtoBlob(full)});
   await put("events",ev);
 
-  pendingId = id; pendingMarks = [];
+  pendingId=id; pendingMarks=[];
   $("#savedImg").src = thumb;
   buildSavedPanel(chosen);
   go("saved");
 }
 
+function renderWarn(){
+  const box=$("#warnBox");
+  if(!pendingMarks.length){ box.style.display="none"; return; }
+  const names = pendingMarks.map(k=>M[k]?M[k].warn:k);
+  $("#warnT").textContent = "⚠ " + names.join(" · ");
+  $("#warnS").textContent = "סימנת שזה רלוונטי לך.";
+  box.style.display = "block";
+}
+
 function buildSavedPanel(chosen){
   clearTimeout(autoTimer);
-  const chips = $("#savedChips"), q = $("#savedQ"), done = $("#doneBtn");
-  chips.innerHTML = "";
+  const chips=$("#savedChips"), q=$("#savedQ"), done=$("#doneBtn"), box=$("#warnBox");
+  chips.innerHTML=""; box.style.display="none";
   if(!chosen.length){
-    q.textContent = ""; done.style.display = "none";
-    autoTimer = setTimeout(closeSaved,1500);
+    q.textContent=""; done.style.display="none";
+    autoTimer=setTimeout(closeSaved,1500);
     return;
   }
-  q.textContent = "מה מתוך אלה היה בארוחה?";
-  done.style.display = "inline-block";
+  q.textContent="מה מתוך אלה היה בארוחה?";
+  done.style.display="inline-block";
   for(const k of chosen){
-    const b = document.createElement("button");
-    b.className = "chip"; b.textContent = MNAME[k] || k; b.dataset.k = k;
+    const b=document.createElement("button");
+    b.className="chip"; b.textContent=(M[k]?M[k].n:k); b.dataset.k=k;
     b.addEventListener("click",()=>{
-      const i = pendingMarks.indexOf(k);
+      const i=pendingMarks.indexOf(k);
       if(i<0){ pendingMarks.push(k); b.classList.add("on"); }
       else { pendingMarks.splice(i,1); b.classList.remove("on"); }
+      renderWarn();
     });
     chips.appendChild(b);
   }
 }
 $("#doneBtn").addEventListener("click",async ()=>{
   if(pendingId){
-    const ev = await get("events",pendingId);
-    if(ev){ ev.markers = pendingMarks.slice(); await put("events",ev); }
+    const ev=await get("events",pendingId);
+    if(ev){ ev.markers=pendingMarks.slice(); ev.warned=pendingMarks.length>0; await put("events",ev); }
   }
   closeSaved();
 });
 function closeSaved(){
   clearTimeout(autoTimer);
-  pendingId = null; pendingMarks = [];
-  $("#savedImg").src = ""; $("#savedChips").innerHTML = "";
+  pendingId=null; pendingMarks=[];
+  $("#savedImg").src=""; $("#savedChips").innerHTML=""; $("#warnBox").style.display="none";
   go("home");
 }
 
 /* ===== היום ===== */
 async function renderToday(){
-  const all = await getAll("events");
-  const k = dayKey(new Date());
-  const list = all.filter(e=>e.day===k).sort((a,b)=>a.recorded_at<b.recorded_at?1:-1);
-  $("#todaySum").textContent = list.length ? ("נרשמו " + list.length + " צילומים") : "";
-  const box = $("#todayList"); box.innerHTML = "";
-  if(!list.length){ box.innerHTML = '<div class="empty">כאן יופיעו הצילומים של היום</div>'; return; }
+  const all=await getAll("events");
+  const k=dayKey(new Date());
+  const list=all.filter(e=>e.day===k).sort((a,b)=>a.recorded_at<b.recorded_at?1:-1);
+  const warned=list.filter(e=>(e.markers||[]).length).length;
+  $("#todaySum").textContent  = list.length ? ("נרשמו " + list.length + " צילומים") : "";
+  $("#todayWarn").textContent = warned ? ("⚠ " + warned + " מתוכם עם התראה") : "";
+  const box=$("#todayList"); box.innerHTML="";
+  if(!list.length){ box.innerHTML='<div class="empty">כאן יופיעו הצילומים של היום</div>'; return; }
   for(const e of list){
-    const d = new Date(e.recorded_at);
-    const row = document.createElement("div"); row.className = "item";
-    const img = document.createElement("img"); img.src = e.thumb; img.alt = "";
-    const txt = document.createElement("div");
-    const marks = (e.markers||[]).map(k=>MNAME[k]||k).join(" · ");
-    txt.innerHTML = '<div class="t"></div><div class="mk"></div>';
-    txt.querySelector(".t").textContent = hhmm(d);
-    txt.querySelector(".mk").textContent = marks;
+    const d=new Date(e.recorded_at), mk=(e.markers||[]);
+    const row=document.createElement("div");
+    row.className="item" + (mk.length ? " warn" : "");
+    const img=document.createElement("img"); img.src=e.thumb; img.alt="";
+    const txt=document.createElement("div");
+    const t=document.createElement("div"); t.className="t"; t.textContent=hhmm(d);
+    const m=document.createElement("div"); m.className="mk";
+    m.textContent = mk.length ? ("⚠ " + mk.map(k=>M[k]?M[k].n:k).join(" · ")) : "";
+    txt.appendChild(t); txt.appendChild(m);
     row.appendChild(img); row.appendChild(txt); box.appendChild(row);
   }
 }
 
 /* ===== השבוע ===== */
 async function renderWeek(){
-  const all = await getAll("events");
-  const box = $("#weekList"); box.innerHTML = "";
+  const all=await getAll("events");
+  const box=$("#weekList"); box.innerHTML="";
   for(let i=6;i>=0;i--){
-    const d = new Date(); d.setDate(d.getDate()-i);
-    const k = dayKey(d);
-    const evs = all.filter(e=>e.day===k);
-    const row = document.createElement("div"); row.className = "wrow";
-    const lab = document.createElement("div"); lab.className = "wday";
-    lab.textContent = (i===0 ? "היום" : DAYS[d.getDay()]);
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const k=dayKey(d), evs=all.filter(e=>e.day===k);
+    const row=document.createElement("div"); row.className="wrow";
+    const lab=document.createElement("div"); lab.className="wday";
+    lab.textContent=(i===0?"היום":DAYS[d.getDay()]);
     row.appendChild(lab);
     if(!evs.length){
-      const s = document.createElement("span"); s.className = "wnone"; s.textContent = "—"; row.appendChild(s);
+      const s=document.createElement("span"); s.className="wnone"; s.textContent="—"; row.appendChild(s);
     } else {
       evs.slice(0,10).forEach(e=>{
-        const s = document.createElement("span");
-        s.className = "dot" + ((e.markers && e.markers.length) ? " f" : "");
+        const s=document.createElement("span");
+        s.className="dot" + ((e.markers&&e.markers.length)?" f":"");
         row.appendChild(s);
       });
     }
@@ -375,85 +403,90 @@ async function renderWeek(){
 
 /* ===== פרופיל והגדרות ===== */
 async function renderSet(){
-  const p = await meta("profile",{});
-  $("#nm").value  = await meta("name","");
-  $("#pAge").value = p.age || "";
-  $("#pH").value   = p.height_cm || "";
-  $("#pW").value   = p.weight_kg || "";
+  const p=await meta("profile",{});
+  $("#nm").value=await meta("name","");
+  $("#pAge").value=p.age||""; $("#pH").value=p.height_cm||""; $("#pW").value=p.weight_kg||"";
   showBMI();
-  const chosen = await meta("markers",[]);
-  const box = $("#mkList"); box.innerHTML = "";
+  const chosen=await meta("markers",[]);
+  const box=$("#mkList"); box.innerHTML="";
   for(const m of MARKERS){
-    const row = document.createElement("div");
-    row.className = "mkrow" + (chosen.includes(m.k) ? " on" : "");
-    const bx = document.createElement("div"); bx.className = "box"; bx.textContent = chosen.includes(m.k) ? "✓" : "";
-    const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = m.n;
-    row.appendChild(bx); row.appendChild(nm);
+    const row=document.createElement("div");
+    row.className="mkrow"+(chosen.includes(m.k)?" on":"");
+    const bx=document.createElement("div"); bx.className="box"; bx.textContent=chosen.includes(m.k)?"✓":"";
+    const wrap=document.createElement("div");
+    const nm=document.createElement("div"); nm.className="nm"; nm.textContent=m.cond;
+    const sb=document.createElement("div"); sb.className="sb"; sb.textContent="התראה על "+m.n;
+    wrap.appendChild(nm); wrap.appendChild(sb);
+    row.appendChild(bx); row.appendChild(wrap);
     row.addEventListener("click", async ()=>{
-      let cur = await meta("markers",[]);
-      if(cur.includes(m.k)) cur = cur.filter(x=>x!==m.k); else cur = cur.concat([m.k]);
+      let cur=await meta("markers",[]);
+      cur = cur.includes(m.k) ? cur.filter(x=>x!==m.k) : cur.concat([m.k]);
       await setMeta("markers",cur);
-      row.classList.toggle("on"); bx.textContent = row.classList.contains("on") ? "✓" : "";
+      row.classList.toggle("on");
+      bx.textContent = row.classList.contains("on") ? "✓" : "";
     });
     box.appendChild(row);
   }
-  const all = await getAll("events");
-  $("#cnt").textContent = "נשמרו עד כה " + all.length + " צילומים.";
+  const all=await getAll("events");
+  $("#cnt").textContent="נשמרו עד כה "+all.length+" צילומים.";
 }
 function showBMI(){
-  const b = calcBMI($("#pH").value, $("#pW").value);
-  $("#bmiN").textContent = b === null ? "—" : b.toFixed(1);
+  const b=calcBMI($("#pH").value,$("#pW").value);
+  $("#bmiN").textContent = b===null ? "—" : b.toFixed(1);
 }
 async function saveProfile(){
   await setMeta("profile",{
-    age:       Number($("#pAge").value) || null,
-    height_cm: Number($("#pH").value)   || null,
-    weight_kg: Number($("#pW").value)   || null
+    age:       Number($("#pAge").value)||null,
+    height_cm: Number($("#pH").value)  ||null,
+    weight_kg: Number($("#pW").value)  ||null
   });
   showBMI();
 }
 ["pAge","pH","pW"].forEach(id=>{
-  const el = document.getElementById(id);
-  el.addEventListener("input", showBMI);
-  el.addEventListener("change", saveProfile);
+  const el=document.getElementById(id);
+  el.addEventListener("input",showBMI);
+  el.addEventListener("change",saveProfile);
 });
 $("#nm").addEventListener("change", async e=> await setMeta("name", e.target.value.trim()));
 
 /* ===== ייצוא ===== */
 async function buildExport(){
-  const events = await getAll("events");
+  const events=await getAll("events");
   events.sort((a,b)=>a.recorded_at<b.recorded_at?-1:1);
-  const p = await meta("profile",{});
+  const p=await meta("profile",{});
+  const mk=await meta("markers",[]);
   return {
-    app:"healthmirror", app_version: APP_VERSION,
-    exported_at: new Date().toISOString(),
-    timezone_offset_minutes: new Date().getTimezoneOffset(),
-    device_id: await meta("device_id",""),
-    display_name: await meta("name",""),
-    profile: { age:p.age||null, height_cm:p.height_cm||null, weight_kg:p.weight_kg||null,
-               bmi: calcBMI(p.height_cm,p.weight_kg) },
-    markers_tracked: await meta("markers",[]),
-    first_open_at: await meta("first_open_at",""),
-    opens: await meta("opens",[]),
-    event_count: events.length,
+    app:"healthmirror", app_version:APP_VERSION,
+    exported_at:new Date().toISOString(),
+    timezone_offset_minutes:new Date().getTimezoneOffset(),
+    device_id:await meta("device_id",""),
+    display_name:await meta("name",""),
+    profile:{ age:p.age||null, height_cm:p.height_cm||null, weight_kg:p.weight_kg||null,
+              bmi:calcBMI(p.height_cm,p.weight_kg) },
+    alerts_enabled: mk,
+    alerts_enabled_labels: mk.map(k=>M[k]?M[k].cond:k),
+    first_open_at:await meta("first_open_at",""),
+    opens:await meta("opens",[]),
+    event_count:events.length,
+    warned_count:events.filter(e=>(e.markers||[]).length).length,
     events
   };
 }
 $("#send").addEventListener("click", async ()=>{
   await saveProfile();
-  const name = ($("#nm").value||"").trim();
+  const name=($("#nm").value||"").trim();
   if(name) await setMeta("name",name);
-  const data = await buildExport();
-  const safe = (name||"מכשיר").replace(/[\\/:*?"<>|]/g,"");
-  const fname = "מראה-" + safe + "-" + dayKey(new Date()) + ".json";
-  const blob = new Blob([JSON.stringify(data,null,1)],{type:"application/json"});
-  const file = new File([blob],fname,{type:"application/json"});
+  const data=await buildExport();
+  const safe=(name||"מכשיר").replace(/[\\/:*?"<>|]/g,"");
+  const fname="מראה-"+safe+"-"+dayKey(new Date())+".json";
+  const blob=new Blob([JSON.stringify(data,null,1)],{type:"application/json"});
+  const file=new File([blob],fname,{type:"application/json"});
   if(navigator.canShare && navigator.canShare({files:[file]})){
     try{ await navigator.share({files:[file],title:"נתוני מראה"}); return; }
     catch(err){ if(err && err.name==="AbortError") return; }
   }
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = fname;
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=fname;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   alert("הקובץ ירד למכשיר. אפשר לשלוח אותו בוואטסאפ מתוך תיקיית ההורדות.");
@@ -466,14 +499,14 @@ $("#wipe").addEventListener("click", async ()=>{
 });
 
 /* ===== התקנה ===== */
-let deferredPrompt = null;
+let deferredPrompt=null;
 window.addEventListener("beforeinstallprompt", e=>{
-  e.preventDefault(); deferredPrompt = e; $("#install").style.display = "block";
+  e.preventDefault(); deferredPrompt=e; $("#install").style.display="block";
 });
 $("#install").addEventListener("click", async ()=>{
   if(!deferredPrompt) return;
   deferredPrompt.prompt(); await deferredPrompt.userChoice;
-  deferredPrompt = null; $("#install").style.display = "none";
+  deferredPrompt=null; $("#install").style.display="none";
 });
 
 /* ===== עלייה ===== */
@@ -481,7 +514,7 @@ $("#install").addEventListener("click", async ()=>{
   await openDB();
   if(!(await meta("device_id",null))) await setMeta("device_id", uid()+uid());
   if(!(await meta("first_open_at",null))) await setMeta("first_open_at", new Date().toISOString());
-  const opens = await meta("opens",[]);
+  const opens=await meta("opens",[]);
   opens.push(new Date().toISOString());
   await setMeta("opens", opens.slice(-500));
   if("serviceWorker" in navigator){ try{ await navigator.serviceWorker.register("sw.js"); }catch(_){} }
